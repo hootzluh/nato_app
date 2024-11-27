@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATO Phonetics Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .output {
+            font-size: 18px;
+            text-align: center;
+            max-width: 400px;
+        }
+        .letter {
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NATO Phonetics Tool</h1>
+    <input type="text" id="nameInput" placeholder="Type a name..." />
+    <div class="output" id="phoneticOutput"></div>
+
+    <script>
+        const natoPhoneticAlphabet = {
+            A: 'Alpha', B: 'Bravo', C: 'Charlie', D: 'Delta', E: 'Echo', F: 'Foxtrot',
+            G: 'Golf', H: 'Hotel', I: 'India', J: 'Juliett', K: 'Kilo', L: 'Lima',
+            M: 'Mike', N: 'November', O: 'Oscar', P: 'Papa', Q: 'Quebec', R: 'Romeo',
+            S: 'Sierra', T: 'Tango', U: 'Uniform', V: 'Victor', W: 'Whiskey',
+            X: 'X-ray', Y: 'Yankee', Z: 'Zulu'
+        };
+
+        const inputField = document.getElementById('nameInput');
+        const outputDiv = document.getElementById('phoneticOutput');
+
+        inputField.addEventListener('input', () => {
+            const input = inputField.value.toUpperCase();
+            const phoneticSpelling = Array.from(input)
+                .map(char => natoPhoneticAlphabet[char] || char)
+                .map(spelling => `<span class="letter">${spelling}</span>`)
+                .join('');
+            outputDiv.innerHTML = phoneticSpelling;
+        });
+    </script>
+</body>
+</html>
