@@ -74,6 +74,44 @@
         .name-column {
             text-align: left;
         }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid white;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-content span {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .feedback-link {
+            font-style: italic;
+            font-weight: bold;
+            flex: 1;
+            text-align: right;
+            color: rgb(21, 255, 0);
+            text-decoration: underline;
+        }
+
+        .feedback-link:hover {
+            color: rgb(255, 251, 0);
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -84,16 +122,24 @@
         <div id="output-text"></div>
     </div>
 
+    <footer id="footer">
+        <div class="footer-content">
+            <span>Made with ❤️ in Alabama. 😀</span><br>
+            <a href="mailto:justin@hutzlertech.com" class="feedback-link">Let me know what you think of this tool, if you
+                have suggestions or need something else built!</a>
+        </div>
+    </footer>
+
     <script>
         const phoneticAlphabet = {
-                A: "Alpha", B: "Bravo", C: "Charlie", D: "Delta", E: "Echo",
-                F: "Foxtrot", G: "Golf", H: "Hotel", I: "India", J: "Juliet",
-                K: "Kilo", L: "Lima", M: "Mike", N: "November", O: "Oscar",
-                P: "Papa", Q: "Quebec", R: "Romeo", S: "Sierra", T: "Tango",
-                U: "Uniform", V: "Victor", W: "Whiskey", X: "X-ray", Y: "Yankee", Z: "Zulu",
-                1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
-                6: "Six", 7: "Seven", 8: "Eight", 9: "Nine", 0: "Zero"
-            };
+            A: "Alpha", B: "Bravo", C: "Charlie", D: "Delta", E: "Echo",
+            F: "Foxtrot", G: "Golf", H: "Hotel", I: "India", J: "Juliet",
+            K: "Kilo", L: "Lima", M: "Mike", N: "November", O: "Oscar",
+            P: "Papa", Q: "Quebec", R: "Romeo", S: "Sierra", T: "Tango",
+            U: "Uniform", V: "Victor", W: "Whiskey", X: "X-ray", Y: "Yankee", Z: "Zulu",
+            1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
+            6: "Six", 7: "Seven", 8: "Eight", 9: "Nine", 0: "Zero"
+        };
 
         const inputField = document.getElementById('input-field');
         const outputContainer = document.getElementById('output-container');
@@ -176,26 +222,26 @@
         }
 
         function formatEmail(emailParts) {
-                const [local, domain] = emailParts.split('@');
-                let result = `
+            const [local, domain] = emailParts.split('@');
+            let result = `
         <div class="static-text">To verify that I have that email typed correctly,</div>
         <div class="static-text">that was<span class="dynamic-text"> ${local}</span>@<span class="dynamic-text">${domain}</span>, spelled...</div>
     `;
 
-                function formatWord(word) {
-                    return word.split('').map(char => {
-                        if (/\d/.test(char)) {
-                            return `<div class="static-text">${getPhonetic(char)}</div>`;
-                        }
-                        return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
-                    }).join('');
-                }
-
-                result += formatWord(local);
-                result += `<div class="static-text">at <span class="dynamic-text">${domain}</span>, is that correct?</div>`;
-
-                return result;
+            function formatWord(word) {
+                return word.split('').map(char => {
+                    if (/\d/.test(char)) {
+                        return `<div class="static-text">${getPhonetic(char)}</div>`;
+                    }
+                    return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+                }).join('');
             }
+
+            result += formatWord(local);
+            result += `<div class="static-text">at <span class="dynamic-text">${domain}</span>, is that correct?</div>`;
+
+            return result;
+        }
     </script>
 </body>
 
