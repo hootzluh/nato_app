@@ -250,6 +250,8 @@
     result += local.split('').map(char => {
         if (/\d/.test(char)) {
             return `<div class="static-text"><span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+        } else if (isSpecialCharacter(char)) {
+            return `<div class="static-text"><span class="dynamic-text">${getPhonetic(char)}</span></div>`;
         }
         return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
     }).join('');
@@ -260,6 +262,31 @@
     `;
 
     return result;
+}
+
+function isSpecialCharacter(char) {
+    const specialCharacters = '_.$@-+#&%*/\\';
+    return specialCharacters.includes(char);
+}
+
+function getPhonetic(char) {
+    const specialCharacters = {
+        '_': 'Underscore (_)',
+        '.': 'Dot (.)',
+        '$': 'Dollar Sign ($)',
+        '@': 'At (@)',
+        '-': 'Dash (-)',
+        '+': 'Plus Sign (+)',
+        '#': 'Hash (#)',
+        '&': 'Ampersand (&)',
+        '%': 'Percent (%)',
+        '*': 'Asterisk (*)',
+        '/': 'Slash (/)',
+        '\\': 'Backslash (\\)'
+    };
+
+    // Return the phonetic alphabet or the special character name
+    return specialCharacters[char] || phoneticAlphabet[char.toUpperCase()] || char;
 }
     </script>
 </body>
