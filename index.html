@@ -174,8 +174,24 @@
         });
 
         function getPhonetic(char) {
-            return phoneticAlphabet[char.toUpperCase()] || char;
-        }
+    const specialCharacters = {
+        '_': 'Underscore (_)',
+        '.': 'Dot (.)',
+        '$': 'Dollar Sign ($)',
+        '@': 'At (@)',
+        '-': 'Dash (-)',
+        '+': 'Plus Sign (+)',
+        '#': 'Hash (#)',
+        '&': 'Ampersand (&)',
+        '%': 'Percent (%)',
+        '*': 'Asterisk (*)',
+        '/': 'Slash (/)',
+        '\\': 'Backslash (\\)'
+    };
+
+    // Return the phonetic alphabet or the special character name
+    return specialCharacters[char] || phoneticAlphabet[char.toUpperCase()] || char;
+}
 
         function formatNames(words) {
             let result = `
@@ -223,27 +239,28 @@
             return result;
         }
 
-        function formatEmail(emailParts) {
-            const [local, domain] = emailParts.split('@');
-            let result = `
-        <div class="static-text">To verify that I have that email typed correctly,</div>
-        <div class="static-text">that was<span class="dynamic-text"> ${local}</span>@<span class="dynamic-text">${domain}</span>, spelled...</div>
+        function formatEmail(email) {
+    const [local, domain] = email.split('@');
+    let result = `
+        <div class="static-text">To verify I have that email typed correctly,</div>
+        <div class="static-text">that was <span class="dynamic-text">${local}</span>@<span class="dynamic-text">${domain}</span>, spelled...</div>
     `;
 
-            function formatWord(word) {
-                return word.split('').map(char => {
-                    if (/\d/.test(char)) {
-                        return `<div class="static-text">${getPhonetic(char)}</div>`;
-                    }
-                    return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
-                }).join('');
-            }
-
-            result += formatWord(local);
-            result += `<div class="static-text">at <span class="dynamic-text">${domain}</span>, is that correct?</div>`;
-
-            return result;
+    // Format the local part of the email
+    result += local.split('').map(char => {
+        if (/\d/.test(char)) {
+            return `<div class="static-text"><span class="dynamic-text">${getPhonetic(char)}</span></div>`;
         }
+        return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+    }).join('');
+
+    // Append the domain part
+    result += `
+        <div class="static-text">@<span class="dynamic-text">${domain}</span>, is that correct?</div>
+    `;
+
+    return result;
+}
     </script>
 </body>
 
