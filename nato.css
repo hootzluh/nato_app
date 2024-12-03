@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* General Body Styling */
+body {
+    font-family: "Avenir LT Pro", Arial, sans-serif;
+    background-color: #2e3440;
+    color: #eceff4;
+    text-align: center;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 2em;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    color: #8BF87DFF;
+    text-shadow: 0px 0px 15px lime;
+}
+
+h2 {
+    font-size: 1.75em;
+    margin-top: -6px;
+    margin-bottom: 16px;
+    color: #8BF87DFF;
+    text-shadow: 0 0 15px lime;
+}
+
+header {
+    position: fixed;
+    display: flex-box;
+    align-items: center;
+    justify-content:  center;
+}
+
+/* Navbar Styling */
+.navbar {
+    height: 90px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid white;
+    color: white;
+    padding-top: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar h2 {
+    text-align: center;
+}
+
+.navbar a {
+    padding: 8px 28px 5px 28px;
+    width: 250px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 15rem;
+    margin: 10px;
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border: solid 1px white;
+    color: #000;
+    box-shadow: 0 0 10px lime;
+}
+
+.navbar a:active {
+    background-color: lime;
+    border: solid 1px lime;
+    color: #000;
+    box-shadow: 0 0 8px lime;
+}
+
+.navbar a.current {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: solid 1px lime;
+    font-weight: bold;
+    color: lime;
+    box-shadow: 0 0 8px lime;
+    pointer-events: none;
+    cursor: none;
+}
+
+/* Button Styling */
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 400px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #4c566a;
+    border: 1px solid lime;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+input {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+    border-color: lime;
+}
+
+#output-container {
+    font-size: 20px;
+    font-weight: bold;
+    visibility: hidden;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: auto;
+    max-width: 650px;
+    text-align: center;
+}
+
+.static-text {
+    color: white;
+    margin: 5px 0;
+}
+
+.dynamic-text {
+    color: lime;
+}
+
+.name-columns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.name-column {
+    text-align: left;
+}
+
+a.tooltiplink {
+    position: relative;
+}
+
+a.tooltiplink:hover::after {
+    content: attr(title);
+    background-color: #000;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 14px;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 1;
+    border: 1px solid lime;
+}

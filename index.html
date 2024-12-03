@@ -4,133 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATO Phonetics Tool - Agent Assistant</title>
+    <link rel="stylesheet" href="nato.css">
     <link href="https://fonts.cdnfonts.com/css/avenir-lt-pro" rel="stylesheet">
-    <title>NATO Phonetics Tool</title>
-    <style>
-        body {
-            font-family: 'Avenir LT Pro', sans-serif;
-            background-image: url(bg.png);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
 
-        h1 {
-            text-decoration: underline;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 50%;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            border-radius: 10px;
-            outline: none;
-        }
-
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        input:focus {
-            border-color: lime;
-        }
-
-        #output-container {
-            font-size: 20px;
-            font-weight: bold;
-            visibility: hidden;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid white;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            width: auto;
-            max-width: 650px;
-            text-align: center;
-        }
-
-        .static-text {
-            color: white;
-            margin: 5px 0;
-        }
-
-        .dynamic-text {
-            color: lime;
-        }
-
-        .name-columns {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .name-column {
-            text-align: left;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid white;
-            color: white;
-            text-align: center;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .footer-content span {
-            flex: 1;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .feedback-link {
-            font-style: italic;
-            font-weight: bold;
-            flex: 1;
-            text-align: right;
-            color: rgb(21, 255, 0);
-            text-decoration: underline;
-        }
-
-        .feedback-link:hover {
-            color: rgb(255, 251, 0);
-            text-decoration: underline;
-        }
-    </style>
 </head>
 
 <body>
-    <h1>NATO Phonetics Tool</h1>
-    <h5>Enter a name, email address, or phone number to see how to verbally repeat it using NATO Phonetics. <br>This helps to ensure accurate spelling for important information that is communicated over the phone.</h5>
-    <input type="text" id="input-field" placeholder="Type a name, phone number, or email address">
-    <div id="output-container">
-        <div id="output-text"></div>
+    <!-- <div id="navbar" class="navbar">
+        <h2>Agent Assistant</h2>
+        <div class="navlinks">
+            <a class="tooltiplink" title="Select a different tool to use." href="../public/index.html">Dashboard</a>
+            <a class="tooltiplink" title="Quickly search the FAQs to assist with issues." href="../src/search.html">FAQ
+                Search</a>
+            <a class="current" href="NATO.html" disabled>NATO Phonetics Tool</a>
+            <a class="tooltiplink" href="../src/form.html"
+                title="Create Escalation Requests or Help Requests to post in teams.">Get Assistance</a>
+        </div>
+         <marquee>test</marquee> 
+    </div> -->
+
+    <div class="toolContainer">
+        <div class="header">
+            <h1>NATO Phonetics Tool</h1>
+            <h4>Enter a name, email address, or phone number to see how to verbally repeat it using NATO Phonetics.
+                <br>This
+                helps to ensure accurate spelling for important information that is communicated over the phone.</h4>
+        </div>
+        <input type="text" id="input-field" placeholder="Type a name, phone number, or email address">
+        <div id="output-container">
+            <div id="output-text"></div>
+        </div>
     </div>
 
-    <footer id="footer">
-        <div class="footer-content">
-            <span>Made with ❤️ in Alabama by Justin. 😀</span><br>
-            <a href="mailto:justin@hutzlertech.com" class="feedback-link">Let me know what you think of this tool, if you
-                have suggestions or need something else built!</a>
-        </div>
-    </footer>
 
     <script>
         const phoneticAlphabet = {
@@ -174,7 +80,23 @@
         });
 
         function getPhonetic(char) {
-            return phoneticAlphabet[char.toUpperCase()] || char;
+            const specialCharacters = {
+                '_': 'Underscore (_)',
+                '.': 'Dot (.)',
+                '$': 'Dollar Sign ($)',
+                '@': 'At (@)',
+                '-': 'Dash (-)',
+                '+': 'Plus Sign (+)',
+                '#': 'Hash (#)',
+                '&': 'Ampersand (&)',
+                '%': 'Percent (%)',
+                '*': 'Asterisk (*)',
+                '/': 'Slash (/)',
+                '\\': 'Backslash (\\)'
+            };
+
+            // Return the phonetic alphabet or the special character name
+            return specialCharacters[char] || phoneticAlphabet[char.toUpperCase()] || char;
         }
 
         function formatNames(words) {
@@ -223,26 +145,54 @@
             return result;
         }
 
-        function formatEmail(emailParts) {
-            const [local, domain] = emailParts.split('@');
+        function formatEmail(email) {
+            const [local, domain] = email.split('@');
             let result = `
-        <div class="static-text">To verify that I have that email typed correctly,</div>
-        <div class="static-text">that was<span class="dynamic-text"> ${local}</span>@<span class="dynamic-text">${domain}</span>, spelled...</div>
+        <div class="static-text">To verify I have that email typed correctly,</div>
+        <div class="static-text">that was <span class="dynamic-text">${local}</span>@<span class="dynamic-text">${domain}</span>, spelled...</div>
     `;
 
-            function formatWord(word) {
-                return word.split('').map(char => {
-                    if (/\d/.test(char)) {
-                        return `<div class="static-text">${getPhonetic(char)}</div>`;
-                    }
-                    return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
-                }).join('');
-            }
+            // Format the local part of the email
+            result += local.split('').map(char => {
+                if (/\d/.test(char)) {
+                    return `<div class="static-text"><span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+                } else if (isSpecialCharacter(char)) {
+                    return `<div class="static-text"><span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+                }
+                return `<div class="static-text"><span class="dynamic-text">${char.toUpperCase()}</span> as in <span class="dynamic-text">${getPhonetic(char)}</span></div>`;
+            }).join('');
 
-            result += formatWord(local);
-            result += `<div class="static-text">at <span class="dynamic-text">${domain}</span>, is that correct?</div>`;
+            // Append the domain part
+            result += `
+        <div class="static-text">@<span class="dynamic-text">${domain}</span>, is that correct?</div>
+    `;
 
             return result;
+        }
+
+        function isSpecialCharacter(char) {
+            const specialCharacters = '_.$@-+#&%*/\\';
+            return specialCharacters.includes(char);
+        }
+
+        function getPhonetic(char) {
+            const specialCharacters = {
+                '_': 'Underscore (_)',
+                '.': 'Dot (.)',
+                '$': 'Dollar Sign ($)',
+                '@': 'At (@)',
+                '-': 'Dash (-)',
+                '+': 'Plus Sign (+)',
+                '#': 'Hash (#)',
+                '&': 'Ampersand (&)',
+                '%': 'Percent (%)',
+                '*': 'Asterisk (*)',
+                '/': 'Slash (/)',
+                '\\': 'Backslash (\\)'
+            };
+
+            // Return the phonetic alphabet or the special character name
+            return specialCharacters[char] || phoneticAlphabet[char.toUpperCase()] || char;
         }
     </script>
 </body>
